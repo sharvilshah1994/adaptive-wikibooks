@@ -1,0 +1,64 @@
+
+<div class="container">
+<div class="row">
+  <app-header></app-header>
+  <h2 style="align: center; padding: 20px">
+  Assignment-3 Content-based Recommendation
+  <br>
+  <h4>Sharvil Shah</h4>
+</h2>
+
+<div class="card w-75" style="padding: 20px; border: 1px">
+  <div class="card-block">
+    <h3 class="card-title">Click anywhere on table to see recommendation for that row</h3>
+        <table class="table-responsive table table-striped table-hover table-fixed table-nowrap" *ngIf="dataFlag">
+          <tr>
+            <th>
+              Type
+            </th>
+            <th>
+              Text
+            </th>
+            <th>
+              Code
+            </th>
+          </tr>
+          <tr *ngFor="let i of data" (click)="eventFire(i);">
+              <td>
+                {{i.type}}
+              </td>
+            <!--</a>-->
+            <td class="overflow">
+              {{i.text}}
+            </td>
+            <td class="overflow">
+              {{i.code}}
+            </td>
+          </tr>
+        </table>
+      </div>
+</div>
+
+
+    <div class="card" style="padding: 20px;" *ngIf="adaptiveTextFlag">
+      <h3 class="card-header">Content-based Recommendation</h3>
+      <div class="card-block">
+        <h4 class="card-title">Top 10 Recommendations</h4>
+        <span *ngFor="let i of dataToDisplay;">
+          <hr>
+          <div class="card">
+            <div class="card-header">
+              <h4>Sr No. {{i.count}}</h4>
+            </div>
+            <div class="card-block">
+              <h4 class="card-title">Topic: {{i.topic}}</h4>
+              <h5>Link: {{i.link}}</h5>
+              <h5>Heading: {{i.heading}}</h5>
+              <p class="card-text"><strong>Content: </strong>{{i.content}}... <strong><a target="_blank" href="{{i.link}}">Read More</a> </strong></p>
+            </div>
+          </div>
+        </span>
+      </div>
+    </div>
+</div>
+</div>

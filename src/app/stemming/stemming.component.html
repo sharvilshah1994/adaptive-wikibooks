@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row">
+    <app-header></app-header>
+
+    <div class="card w-75" style="padding: 20px; border: 1px">
+      <div class="card-block">
+        <h3 class="card-title">Click anywhere on table to see Stemming for that row</h3>
+        <table class="table-responsive table table-striped table-hover table-fixed table-nowrap" *ngIf="dataFlag">
+          <tr>
+            <th>
+              Type
+            </th>
+            <th>
+              Text
+            </th>
+            <th>
+              Code
+            </th>
+          </tr>
+          <tr *ngFor="let i of data" (click)="eventFire(i);">
+            <td>
+              {{i.type}}
+            </td>
+            <!--</a>-->
+            <td class="overflow">
+              {{i.text}}
+            </td>
+            <td class="overflow">
+              {{i.code}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <br>
+    <br>
+    <span *ngIf="stemDataFlag">
+      <table class="table table-responsive">
+        <tr>
+          <th>
+            Sr No.
+          </th>
+          <th>
+            Token
+          </th>
+          <th>
+            Start Offset
+          </th>
+          <th>
+            End Offset
+          </th>
+          <th>
+            Position
+          </th>
+        </tr>
+        <tr *ngFor="let i of stemData">
+          <td>
+            {{i.count}}
+          </td>
+          <td>
+            {{i.token}}
+          </td>
+          <td>
+            {{i.start_offset}}
+          </td>
+          <td>
+            {{i.end_offset}}
+          </td>
+          <td>
+            {{i.position}}
+          </td>
+        </tr>
+      </table>
+    </span>
+  </div>
+</div>

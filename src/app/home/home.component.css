@@ -1,0 +1,25 @@
+.table-fixed tbody {
+  overflow-y: auto;
+  width: 100%;
+}
+
+.table-nowrap {
+  table-layout:fixed;
+}
+
+.table-nowrap td {
+  cursor: pointer;
+}
+
+.table-nowrap td.overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+.table-nowrap td.overflow:hover{
+  overflow: visible;
+  white-space: normal;
+  word-break: break-all;
+}
