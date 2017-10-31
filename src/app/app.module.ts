@@ -13,6 +13,9 @@ import {HttpModule} from "@angular/http";
 import { HeaderComponent } from './header/header.component';
 import { ExplanationComponent } from './explanation/explanation.component';
 import { StemmingComponent } from './stemming/stemming.component';
+import {ModalModule} from "angular2-modal";
+import {BootstrapModalModule} from "angular2-modal/plugins/bootstrap";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import { StemmingComponent } from './stemming/stemming.component';
     MatButtonModule,
     MatCheckboxModule,
     MatExpansionModule,
-    HttpModule
+    HttpModule,
+    ModalModule.forRoot(),
+    BootstrapModalModule,
+    FormsModule
   ],
   providers: [BackendService],
   bootstrap: [AppComponent]

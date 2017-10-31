@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {BackendService} from "../backend.service";
+import {Modal} from "angular2-modal/plugins/bootstrap";
+import {NgForm} from "@angular/forms";
 
 
 @Component({
@@ -8,19 +10,43 @@ import {BackendService} from "../backend.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('f') loginForm: NgForm;
   data: any = [];
   dataFlag = false;
   adaptiveTextFlag = false;
   dataToDisplay: any = [];
+  formFlag = false;
+  text;
+  type;
+  code;
 
-  constructor(private backend: BackendService) {
+  constructor(private backend: BackendService, private modal: Modal) {
   }
+
+
 
   ngOnInit() {
     this.appendData();
   }
 
-  eventFire(data) {
+
+  appendNewData() {
+    this.formFlag = true;
+  }
+
+  addToArray() {
+    this.dataFlag = false;
+    const val = this.loginForm.value;
+    this.text = val.text;
+    this.type = val.type;
+    this.code = val.code;
+    this.data.push({"type":this.type, "text":this.text, "code": this.code});
+    console.log(this.data);
+    this.formFlag = false;
+    this.dataFlag = true;
+  }
+
+  eventFire(data, id) {
     this.adaptiveTextFlag = false;
     this.dataToDisplay = [];
     let dat = data.text;
@@ -30,22 +56,47 @@ export class HomeComponent implements OnInit {
     dat = dat.replace(",", " ");
     dat = dat.replace(/;/, "");
     dat = dat.replace(/:/, "");
+    dat = dat.substring(0, dat.length-1);
     this.backend.getRecommendation(dat)
       .subscribe(
         (data: any) => {
           let count = 1;
           for (let i of data.hits.hits) {
-            let heading = i._source.heading.replace("[edit]","");
+
             let content = i._source.content.substring(0, 500);
-            // content += " " + "<a href='"+i._source.link+"'>Read More</a>";
-            let dic = {"count":count, "content": content, "link": i._source.link, "heading": heading, "topic": i._source.topic};
+            let type = i._type;
+            let dic = null;
+            if (type === "wiki") {
+              let heading = i._source.heading.replace("[edit]","");
+              // content += " " + "<a href='"+i._source.link+"'>Read More</a>";
+              dic = {
+                "count": count,
+                "type": type.toUpperCase(),
+                "content": content,
+                "link": i._source.link,
+                "heading": heading,
+                "topic": i._source.topic
+              };
+            } else {
+              let topic = i._source.topic;
+              topic = topic.replace("<h1>", "");
+              topic = topic.replace("</h1>", "");
+              dic = {
+                "count": count,
+                "type": type.toUpperCase(),
+                "link": i._source.link,
+                "content": content,
+                "heading": "",
+                "topic": topic
+              };
+            }
             this.dataToDisplay.push(dic);
             count++;
           }
-        }
-      );
-    console.log(this.dataToDisplay);
+          });
+    console.log(id);
     this.adaptiveTextFlag = true;
+    id.scrollIntoView();
   }
 
 
