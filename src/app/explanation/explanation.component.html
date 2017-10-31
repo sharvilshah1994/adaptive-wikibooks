@@ -1,8 +1,54 @@
 <div class="container">
   <div class="row">
     <app-header></app-header>
-
-
+    <hr>
+    <h4>Technology Used</h4>
+    <hr>
+    <ul>
+      <li><strong>Elastic Search:</strong> Lucene-based Indexing</li>
+      <li><strong>Mongo DB:</strong> Storage</li>
+      <li><strong>Python:</strong> Scraping</li>
+      <li><strong>Angular 4:</strong> Web Application</li>
+    </ul>
+    <hr>
+    <h4>Steps taken to implement this:</h4>
+    <hr>
+    <p>The following steps were taken to implement this</p>
+    <ol>
+      <li><strong>Crawled</strong> java programming wikibooks pages. URL: https://en.wikibooks.org/wiki/Java_Programming</li>
+      <ul>
+        <li>
+          This task was done using Python library <strong>Scrapy</strong>. Scrapy crawled through the given link and scraped all the
+          relevant data.
+        </li>
+      </ul>
+      <br>
+      <li>The scraped data is put to <strong>Mongo DB</strong> so that Encoding and Decoding errors do not take place.</li>
+      <ul>
+        <li><strong>Pymongo</strong> library is used to dump the scraped data to Mongo.</li>
+      </ul>
+      <br>
+      <li>From Mongo DB, I have used <strong>Elastic Search</strong> library of python to create schema, index data and store all the data in Elastic Search Schema.
+          Indexing is <strong>NOT</strong> done page wise. <span class="text-uppercase"><strong>Indexing is done sub-heading wise to get user a better idea.</strong></span>
+      </li>
+      <ul>
+        <li>Schema for Elastic Search is something like this:</li>
+        <ul>
+          <li><strong>Topic:</strong> (Datatype=TEXT); Stores the chapter name of the book</li>
+          <li><strong>Link:</strong> (Datatype=TEXT); Stores the Wiki link to the book</li>
+          <li><strong>Heading:</strong> (Datatype=TEXT); Stores the sub-heading of the book page</li>
+          <li><strong>Content:</strong> (Datatype=TEXT); Content under a specific sub-heading</li>
+        </ul>
+      </ul>
+      <br>
+      <li><strong>Angular 4: </strong> JavaScript framework. This is used to implement the web application.</li>
+    </ol>
+    <hr>
+    <h4>Extra Credit</h4>
+    <hr>
+    <h5>Stemming</h5>
+    <p>The sentence are converted to tokens and then searched in Elastic search index to ensure better delivery.</p>
+    <p><strong>Please have a look at Stemming tab to get a better look.</strong></p>
   </div>
 </div>
 
